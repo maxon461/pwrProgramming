@@ -19,13 +19,14 @@ void mt_test()
 
 //Operators
 
-template <> std::string MathTree<std::string>::removeSubstring(const std::string& str, const std::string& substr) {
+std::string subtractLastSubstring(const std::string& str, const std::string& substr) {
     std::string result = str;
-    size_t pos = result.find(substr);
-    while (pos != std::string::npos) {
-        result.erase(pos, substr.length());
-        pos = result.find(substr);
+
+    size_t pos = result.rfind(substr);
+    if (pos != std::string::npos && pos == result.length() - substr.length()) {
+        result.erase(pos);
     }
+
     return result;
 }
 
@@ -36,10 +37,14 @@ template <> std::string MathTree<std::string>::multiplyStrings(const std::string
 
     std::string result;
     char firstChar = str2[0];
-
+    int last = 0;
     for (size_t i = 0; i <= str1.length(); ++i) {
-        result += str1.substr(0, i) + str2.substr(1);
+        if(str1[i] == firstChar) {
+            result += str1.substr(last, i) + str2.substr(0, str2.size());
+            last = i+1;
+        }
     }
+    result+=str1.substr(last, str1.size());
 
     return result;
 }
@@ -144,7 +149,7 @@ template <> std::string MathTree<std::string>::compile(Node *root, std::vector<s
             case PLUS:
                 return compile(root->left, values) + compile(root->right, values);
             case MINUS:
-                return removeSubstring( compile(root->left, values),compile(root->right, values));
+                return subtractLastSubstring( compile(root->left, values),compile(root->right, values));
             case DIV:
             {
                 return divideStrings(compile(root->left, values),compile(root->right , values));
