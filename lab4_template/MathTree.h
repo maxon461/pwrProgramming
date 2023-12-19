@@ -30,22 +30,22 @@ private:
         Node *left = nullptr;
         Node *right = nullptr;
         T value = 0;
-        std::string name;
+        char name;
         bool variable = false;
         Operations op = NIL;
-        explicit Node(std::string name)
+        explicit Node(char name)
         {
-            this->name = std::move(name);
+            this->name = (name);
             variable = true;
         }
         explicit Node(float val)
         {
             value = val;
         }
-//        explicit Node(std::string val)
-//        {
-//            value = val;
-//        }
+        explicit Node(std::string val)
+        {
+            value = val;
+        }
         explicit Node(Operations op)
         {
             this->op = op;
@@ -60,7 +60,7 @@ private:
     std::vector<Node *> vars;
 
     void printVars();
-    float compile(Node *root, std::vector<float> *values);
+    T compile(Node *root, std::vector<T> *values);
     void join(std::string formula);
     void clear();
     void print(Node *root);
@@ -72,6 +72,7 @@ private:
     bool isStringANumber(std::string string);
     Node *findNodeInVectorByName(std::vector<Node *> *vector, std::string string);
 
+    std::string operator-( const std::string& substr);
 public:
     void menu();
 };

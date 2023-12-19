@@ -37,7 +37,7 @@ template <typename T>void MathTree<T>::printVars()
     std::cout << std::endl;
 }
 
-template <typename  T> float MathTree<T>::compile(Node *root, std::vector<float> *values)
+template <> float MathTree<float>::compile(Node *root, std::vector<float> *values)
 {
     if (empty())
     {
@@ -85,6 +85,50 @@ template <typename  T> float MathTree<T>::compile(Node *root, std::vector<float>
     }
     return 0;
 }
+
+template <> std::string MathTree<std::string>::compile(Node *root, std::vector<std::string> *values)
+{
+    if (empty())
+    {
+        std::cout << "Tree is empty.\n";
+        return 0;
+    }
+
+    if (root->op != NIL)
+    {
+        switch (root->op)
+        {
+            case PLUS:
+                return compile(root->left, values) + compile(root->right, values);
+//            case MINUS:
+//                return compile(root->left, values) - compile(root->right, values);
+//            case DIV:
+//            {
+//                return compile(root->left, values) / (root->right , values);
+//            }
+//            case MULT:
+//                return compile(root->left, values) * compile(root->right, values);
+//            case SIN:
+//                return std::sin(compile(root->left, values));
+//            case COS:
+//                return std::cos(compile(root->left, values));
+//            case NIL:
+//                break;
+        }
+    }
+    else if (root->variable)
+    {
+        std::string currVal = values->front();
+        values->erase(values->begin());
+        return currVal;
+    }
+    else
+    {
+        return root->value;
+    }
+    return 0;
+}
+
 
 template <typename  T> void MathTree<T>::join(std::string formula)
 {
@@ -200,7 +244,7 @@ template <typename  T> void MathTree<T>::create(std::string formula)
     }
 }
 
-template <typename  T> MathTree<T>::Node *MathTree<T>::createHelper(std::vector<std::string> *elements)
+template <> MathTree<float>::Node *MathTree<float>::createHelper(std::vector<std::string> *elements)
 {
     std::string current = elements->front();
     elements->erase(elements->begin());
@@ -246,18 +290,74 @@ template <typename  T> MathTree<T>::Node *MathTree<T>::createHelper(std::vector<
         node = findNodeInVectorByName(&vars, current);
         if (node == nullptr)
         {
-            node = new Node(current);
+            node = new Node(current[0]);
             vars.push_back(node);
         }
     }
     return node;
 }
 
+template <> MathTree<std::string>::Node *MathTree<std::string>::createHelper(std::vector<std::string> *elements)
+{
+    std::string current = elements->front();
+    elements->erase(elements->begin());
+    Node *node;
+    if (current == "+" || current == "-" || current == "*" || current == "/" || current == "sin" || current == "cos")
+    {
+        if (current == "+")
+            node = new Node(Operations(PLUS));
+        if (current == "-")
+            node = new Node(Operations(MINUS));
+        if (current == "*")
+            node = new Node(Operations(MULT));
+        if (current == "/")
+            node = new Node(Operations(DIV));
+        if (current == "sin")
+            node = new Node(Operations(SIN));
+        if (current == "cos")
+            node = new Node(Operations(COS));
+
+        if (elements->empty())
+        {
+            elements->emplace_back("111");
+            std::cout << "Missing variable replaced with 1\n";
+        }
+        node->left = createHelper(elements);
+
+        if (current == "+" || current == "-" || current == "*" || current == "/")
+        {
+            if (elements->empty())
+            {
+                elements->emplace_back("111");
+                std::cout << "Missing variable replaced with 1\n";
+            }
+            node->right = createHelper(elements);
+        }
+    }
+    else if (current.size()>1)
+    {
+        node = new Node(current);
+    }
+    else
+    {
+        node = findNodeInVectorByName(&vars, current);
+        if (node == nullptr)
+        {
+            node = new Node(current[0]);
+            vars.push_back(node);
+        }
+    }
+    return node;
+}
+
+
+
+
 template <typename  T> typename MathTree<T>::Node *MathTree<T>::findNodeInVectorByName(std::vector<Node *> *vector, std::string string)
 {
     for (int i = 0; i < vector->size(); ++i)
     {
-        if (vector->at(i)->name == string)
+        if (vector->at(i)->name == string[0])
             return vector->at(i);
     }
     return nullptr;
@@ -373,4 +473,12 @@ template <typename  T> std::vector<std::string> MathTree<T>::splitString(std::st
 template <typename  T> bool MathTree<T>::empty()
 {
     return root == nullptr;
+}
+
+template <> std::string MathTree<std::string>::operator-( const std::string& substr) {
+    size_t pos = this->root->value.rfind(substr);
+    if (pos != std::string::npos) {
+        return this->root->value.substr(0, pos);
+    }
+    return this->root->value;
 }
