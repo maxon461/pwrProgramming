@@ -4,16 +4,59 @@
 
 
 #include "MathTree.h"
-
+#include <type_traits>
 #include <cmath>
 #include <sstream>
 #include <utility>
 
 void mt_test()
 {
-    MathTree<float> tree;
-    tree.menu();
+    MathTree<std::string> tree;
+    tree.menuS();
 }
+
+
+
+//Operators
+
+template <> std::string MathTree<std::string>::removeSubstring(const std::string& str, const std::string& substr) {
+    std::string result = str;
+    size_t pos = result.find(substr);
+    while (pos != std::string::npos) {
+        result.erase(pos, substr.length());
+        pos = result.find(substr);
+    }
+    return result;
+}
+
+template <> std::string MathTree<std::string>::multiplyStrings(const std::string& str1, const std::string& str2) {
+    if (str2.empty()) {
+        return str1;  // Mnożenie przez pusty string daje wynik równy pierwszemu stringowi
+    }
+
+    std::string result;
+    char firstChar = str2[0];
+
+    for (size_t i = 0; i <= str1.length(); ++i) {
+        result += str1.substr(0, i) + str2.substr(1);
+    }
+
+    return result;
+}
+
+
+
+template <> std::string MathTree<std::string>::divideStrings(const std::string& dividend, const std::string& divisor) {
+    std::string result = dividend;
+    size_t pos = result.find(divisor);
+
+    if (!divisor.empty() && pos != std::string::npos) {
+        result.erase(pos + 1);  // Zostawiamy tylko pierwszy znak dzielnika
+    }
+
+    return result;
+}
+//End of operators
 
 template <typename T>void MathTree<T>::printVars()
 {
@@ -100,20 +143,20 @@ template <> std::string MathTree<std::string>::compile(Node *root, std::vector<s
         {
             case PLUS:
                 return compile(root->left, values) + compile(root->right, values);
-//            case MINUS:
-//                return compile(root->left, values) - compile(root->right, values);
-//            case DIV:
-//            {
-//                return compile(root->left, values) / (root->right , values);
-//            }
-//            case MULT:
-//                return compile(root->left, values) * compile(root->right, values);
-//            case SIN:
-//                return std::sin(compile(root->left, values));
-//            case COS:
-//                return std::cos(compile(root->left, values));
-//            case NIL:
-//                break;
+            case MINUS:
+                return removeSubstring( compile(root->left, values),compile(root->right, values));
+            case DIV:
+            {
+                return divideStrings(compile(root->left, values),compile(root->right , values));
+            }
+            case MULT:
+                return multiplyStrings( compile(root->left, values),compile(root->right, values));
+            case SIN:
+                return (compile(root->left, values));
+            case COS:
+                return (compile(root->left, values));
+            case NIL:
+                break;
         }
     }
     else if (root->variable)
@@ -301,7 +344,7 @@ template <> MathTree<std::string>::Node *MathTree<std::string>::createHelper(std
 {
     std::string current = elements->front();
     elements->erase(elements->begin());
-    Node *node;
+    Node *node = nullptr;
     if (current == "+" || current == "-" || current == "*" || current == "/" || current == "sin" || current == "cos")
     {
         if (current == "+")
@@ -373,7 +416,7 @@ template <typename  T> bool MathTree<T>::isStringANumber(std::string string)
     return true;
 }
 
-template <typename  T> void MathTree<T>::menu()
+ template <typename T>void MathTree<T>::menuF()
 {
     bool exit = false;
 
@@ -395,37 +438,91 @@ template <typename  T> void MathTree<T>::menu()
             print(root);
             std::cout << std::endl;
         }
-        else if (command == "comp")
-        {
+        else if (command == "comp") {
             std::vector<std::string> elements = splitString(str.substr(4));
-            std::vector<float> values;
+
+                std::vector<float> values;
+
+                int errors = 0;
+                if (elements.size() < vars.size())
+                    errors++;
+                else {
+                    for (int i = 0; i < elements.size(); ++i) {
+                        if (!isStringANumber(elements.at(i))) {
+                            errors++;
+                        } else {
+                            values.push_back(std::stof(elements.at(i)));
+                        }
+                    }
+                }
+
+                if (errors != 0) {
+                    std::cout << "Provided incorrect numbers\n";
+                } else {
+                    std::cout << "Result: " << compile(root, &values) << std::endl;
+                }
+
+        }
+        else if (command == "join")
+        {
+            join(str.substr(4));
+        }
+        else if (command == "clear")
+        {
+            clear();
+        }
+        else if (command == "exit")
+        {
+            exit = true;
+            delete root;
+            std::cout << "Stopping program...\n";
+        }
+    }
+}
+
+template <typename T> void MathTree<T>::menuS()
+{
+    bool exit = false;
+
+    while (!exit)
+    {
+        std::string str;
+        std::getline(std::cin, str);
+        std::string command = str.substr(0, str.find(' '));
+        if (command == "enter")
+        {
+            create(str.substr(5)); // from 5 element
+        }
+        else if (command == "vars")
+        {
+            printVars();
+        }
+        else if (command == "print")
+        {
+            print(root);
+            std::cout << std::endl;
+        }
+        else if (command == "comp") {
+            std::vector<std::string> elements = splitString(str.substr(4));
+
+            std::vector<std::string> values;
 
             int errors = 0;
             if (elements.size() < vars.size())
                 errors++;
-            else
-            {
-                for (int i = 0; i < elements.size(); ++i)
-                {
-                    if (!isStringANumber(elements.at(i)))
-                    {
-                        errors++;
-                    }
-                    else
-                    {
-                        values.push_back(std::stof(elements.at(i)));
-                    }
+            else {
+                for (int i = 0; i < elements.size(); ++i) {
+                    values.push_back((elements.at(i)));
+
                 }
             }
 
-            if (errors != 0)
-            {
+            if (errors != 0) {
                 std::cout << "Provided incorrect numbers\n";
-            }
-            else
-            {
+            } else {
                 std::cout << "Result: " << compile(root, &values) << std::endl;
             }
+
         }
         else if (command == "join")
         {
@@ -475,10 +572,5 @@ template <typename  T> bool MathTree<T>::empty()
     return root == nullptr;
 }
 
-template <> std::string MathTree<std::string>::operator-( const std::string& substr) {
-    size_t pos = this->root->value.rfind(substr);
-    if (pos != std::string::npos) {
-        return this->root->value.substr(0, pos);
-    }
-    return this->root->value;
-}
+
+

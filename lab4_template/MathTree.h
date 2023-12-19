@@ -29,7 +29,7 @@ private:
     public:
         Node *left = nullptr;
         Node *right = nullptr;
-        T value = 0;
+        T value ;
         char name;
         bool variable = false;
         Operations op = NIL;
@@ -72,9 +72,12 @@ private:
     bool isStringANumber(std::string string);
     Node *findNodeInVectorByName(std::vector<Node *> *vector, std::string string);
 
-    std::string operator-( const std::string& substr);
+    std::string removeSubstring(const std::string& str, const std::string& substr);
+    std::string multiplyStrings(const std::string& str1, const std::string& str2);
+    std::string divideStrings(const std::string& dividend, const std::string& divisor);
 public:
-    void menu();
+    void menuF();
+    void menuS();
 };
 
 void mt_test();
