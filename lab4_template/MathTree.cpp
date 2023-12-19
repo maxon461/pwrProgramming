@@ -19,7 +19,7 @@ void mt_test()
 
 //Operators
 
-std::string subtractLastSubstring(const std::string& str, const std::string& substr) {
+template <> std::string MathTree<std::string>::subtractLastSubstring(const std::string& str, const std::string& substr) {
     std::string result = str;
 
     size_t pos = result.rfind(substr);
@@ -56,7 +56,7 @@ template <> std::string MathTree<std::string>::divideStrings(const std::string& 
     size_t pos = result.find(divisor);
 
     if (!divisor.empty() && pos != std::string::npos) {
-        result.erase(pos + 1);  // Zostawiamy tylko pierwszy znak dzielnika
+        result.erase(pos);  // Zostawiamy tylko pierwszy znak dzielnika
     }
 
     return result;

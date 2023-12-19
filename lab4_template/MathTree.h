@@ -72,7 +72,7 @@ private:
     bool isStringANumber(std::string string);
     Node *findNodeInVectorByName(std::vector<Node *> *vector, std::string string);
 
-    std::string removeSubstring(const std::string& str, const std::string& substr);
+    std::string subtractLastSubstring(const std::string& str, const std::string& substr);
     std::string multiplyStrings(const std::string& str1, const std::string& str2);
     std::string divideStrings(const std::string& dividend, const std::string& divisor);
 public:
