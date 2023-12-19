@@ -1,0 +1,3 @@
+/Users/maxon462/Desktop/c++/lab4_template/cmake-build-debug/CMakeFiles/lab4_template.dir
+/Users/maxon462/Desktop/c++/lab4_template/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/maxon462/Desktop/c++/lab4_template/cmake-build-debug/CMakeFiles/rebuild_cache.dir
