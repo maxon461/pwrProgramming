@@ -1,0 +1,5 @@
+# ninja log v5
+1	171	1704634381647384545	CMakeFiles/SmartPointers.dir/SmartPointer.cpp.o	1b101f7833e747e5
+1	172	1704634381647239750	CMakeFiles/SmartPointers.dir/CRefCounter.cpp.o	1bd28b5426e66a7a
+0	529	1704634382004921169	CMakeFiles/SmartPointers.dir/main.cpp.o	a19bbdbe96cdc7c
+531	629	1704634382105852690	SmartPointers	8ffe77e10aefd9b6

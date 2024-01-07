@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/Users/maxon462/Desktop/C++/array_Lab4_modific/cmake-build-debug"
+			"value" : "/Users/maxon462/Desktop/C++/SmartPointers/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -479,7 +479,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Users/maxon462/Desktop/C++/array_Lab4_modific/cmake-build-debug/CMakeFiles/pkgRedirects"
+			"value" : "/Users/maxon462/Desktop/C++/SmartPointers/cmake-build-debug/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -539,7 +539,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/Users/maxon462/Desktop/C++/array_Lab4_modific"
+			"value" : "/Users/maxon462/Desktop/C++/SmartPointers"
 		},
 		{
 			"name" : "CMAKE_INSTALL_NAME_TOOL",
@@ -819,7 +819,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "array_Lab4_modific"
+			"value" : "SmartPointers"
 		},
 		{
 			"name" : "CMAKE_RANLIB",
@@ -1118,7 +1118,7 @@
 			"value" : "FALSE"
 		},
 		{
-			"name" : "array_Lab4_modific_BINARY_DIR",
+			"name" : "SmartPointers_BINARY_DIR",
 			"properties" : 
 			[
 				{
@@ -1127,10 +1127,10 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Users/maxon462/Desktop/C++/array_Lab4_modific/cmake-build-debug"
+			"value" : "/Users/maxon462/Desktop/C++/SmartPointers/cmake-build-debug"
 		},
 		{
-			"name" : "array_Lab4_modific_IS_TOP_LEVEL",
+			"name" : "SmartPointers_IS_TOP_LEVEL",
 			"properties" : 
 			[
 				{
@@ -1142,7 +1142,7 @@
 			"value" : "ON"
 		},
 		{
-			"name" : "array_Lab4_modific_SOURCE_DIR",
+			"name" : "SmartPointers_SOURCE_DIR",
 			"properties" : 
 			[
 				{
@@ -1151,7 +1151,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Users/maxon462/Desktop/C++/array_Lab4_modific"
+			"value" : "/Users/maxon462/Desktop/C++/SmartPointers"
 		}
 	],
 	"kind" : "cache",
