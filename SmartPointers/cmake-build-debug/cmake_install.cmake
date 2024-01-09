@@ -1,4 +1,4 @@
-# Install script for directory: /Users/maxon462/Desktop/C++/SmartPointers
+# Install script for directory: /Users/maxon462/Desktop/c++/SmartPointers
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/maxon462/Desktop/C++/SmartPointers/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/maxon462/Desktop/c++/SmartPointers/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

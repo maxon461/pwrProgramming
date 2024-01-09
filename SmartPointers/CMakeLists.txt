@@ -7,4 +7,6 @@ add_executable(SmartPointers main.cpp
         SmartPointer.cpp
         SmartPointer.h
         CRefCounter.cpp
-        CRefCounter.h)
+        CRefCounter.h
+        SmartMPointer.cpp
+        SmartMPointer.h)

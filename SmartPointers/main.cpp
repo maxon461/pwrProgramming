@@ -1,6 +1,6 @@
 #include <iostream>
 #include "SmartPointer.h"
-
+#include "SmartMPointer.h"
 class MyClass {
 public:
     MyClass(int val) : data(val) {}
@@ -14,29 +14,37 @@ private:
 };
 
 int main() {
-    // Creating a smart pointer and initializing it with a new instance of MyClass
+
     MySmartPointer<MyClass> mySmartPtr(new MyClass(42));
 
-    // Creating another smart pointer and copying the first one
+    std::cout<<mySmartPtr.pc_counter->iGet()<<std::endl;
+
     MySmartPointer<MyClass> mySmartPtrCopy = mySmartPtr;
 
-    // Displaying the data using the dereference operator
+
     (*mySmartPtr).display();
 
-    // Accessing methods using the arrow operator
+
     mySmartPtr->display();
 
-    // Displaying the reference count
+
     std::cout << "Reference Count: " << mySmartPtrCopy.pc_counter->iGet() << std::endl;
 
-    // Modifying data through the smart pointer
+
     (*mySmartPtrCopy).display();
     mySmartPtrCopy->display();
 
-    // Displaying the reference count after modifications
+
     std::cout << "Reference Count: " << mySmartPtrCopy.pc_counter->iGet() << std::endl;
 
-    // Exiting the scope, the destructor will be called, and memory will be freed if necessary
-
+    // Przykład
+    SmartMPointer<int> uniqueIntPtr(new int(42));
+    std::cout << "Dereferencing MyUniquePointer<int>: " << *uniqueIntPtr << "\n";
+    SmartMPointer<int> un2(std::move(uniqueIntPtr));
+    //copy doesn't work
+//    SmartMPointer<int> un3(uniqueIntPtr);
+    SmartMPointer<int> un4 = std::move(uniqueIntPtr);
+    //copy doesn't work
+//    SmartMPointer<int> un5 = uniqueIntPtr;
     return 0;
 }
