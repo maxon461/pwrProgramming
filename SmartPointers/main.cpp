@@ -46,5 +46,10 @@ int main() {
     SmartMPointer<int> un4 = std::move(uniqueIntPtr);
     //copy doesn't work
 //    SmartMPointer<int> un5 = uniqueIntPtr;
+
+// Przykład użycia MyUniquePointer dla tablicy int
+    SmartMPointer<int[]> uniqueIntPtrArray(new int[5]{1, 2, 3, 4, 5});
+    std::cout << "Accessing element of MyUniquePointer<int[]>: " << uniqueIntPtrArray[2] << "\n";
+
     return 0;
 }

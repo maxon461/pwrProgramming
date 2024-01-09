@@ -51,4 +51,48 @@ private:
 
 
 
+
+
+template <typename T>
+class SmartMPointer<T[]> {
+private:
+    T* resource;
+
+public:
+    explicit SmartMPointer(T* ptr = nullptr) : resource(ptr) {}
+
+    SmartMPointer(SmartMPointer&& other) noexcept : resource(nullptr) {
+        *this = std::move(other);
+    }
+
+    SmartMPointer& operator=(SmartMPointer&& other) noexcept {
+        if (this != &other) {
+            reset();
+            resource = other.resource;
+            other.resource = nullptr;
+        }
+        return *this;
+    }
+
+    T& operator[](size_t index) const {
+        if (resource) {
+            return resource[index];
+        }
+        throw std::runtime_error("Accessing elements of a null pointer");
+    }
+
+    void reset() {
+        delete[] resource;
+        resource = nullptr;
+    }
+
+    ~SmartMPointer() {
+        reset();
+    }
+
+private:
+    SmartMPointer(const SmartMPointer& other) = delete;
+    SmartMPointer& operator=(const SmartMPointer& other) = delete;
+};
+
 #endif //SMARTPOINTERS_SMARTMPOINTER_H
