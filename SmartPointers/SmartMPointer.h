@@ -78,7 +78,6 @@ public:
         if (resource) {
             return resource[index];
         }
-        throw std::runtime_error("Accessing elements of a null pointer");
     }
 
     void reset() {
@@ -89,10 +88,16 @@ public:
     ~SmartMPointer() {
         reset();
     }
-
-private:
     SmartMPointer(const SmartMPointer& other) = delete;
     SmartMPointer& operator=(const SmartMPointer& other) = delete;
+private:
+//    SmartMPointer(const SmartMPointer& other) {};
+//    SmartMPointer& operator=(const SmartMPointer& other) {};
 };
 
 #endif //SMARTPOINTERS_SMARTMPOINTER_H
+//pamiec przypinana move semantics
+// dla unikania niepotrzebnych kopiowan
+
+//It optimizes resource management by allowing resources to be moved from
+// one object to another, instead of copying them.
