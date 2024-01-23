@@ -1,13 +1,6 @@
 # ninja log v5
-1	171	1704634381647384545	CMakeFiles/SmartPointers.dir/SmartPointer.cpp.o	1b101f7833e747e5
-2	372	1704808899713324359	CMakeFiles/SmartPointers.dir/main.cpp.o	a19bbdbe96cdc7c
-1	172	1704634381647239750	CMakeFiles/SmartPointers.dir/CRefCounter.cpp.o	1bd28b5426e66a7a
-372	409	1704808899750937916	SmartPointers	8ffe77e10aefd9b6
 7	184	1704825643793448344	CMakeFiles/SmartPointers.dir/SmartPointer.cpp.o	ba513c496b7b4216
-7	185	1704825643793443428	CMakeFiles/SmartPointers.dir/CRefCounter.cpp.o	e2a0e8a55704e8c3
-7	500	1704825644107854321	CMakeFiles/SmartPointers.dir/SmartMPointer.cpp.o	c41915b54a5fbe90
-5	527	1704825644135925374	CMakeFiles/SmartPointers.dir/main.cpp.o	1dbd21e6cc9ed5b1
-527	626	1704825644234648908	SmartPointers	c0e8b0dd9e4cd3f6
-2	497	1704827619157440803	CMakeFiles/SmartPointers.dir/SmartMPointer.cpp.o	c41915b54a5fbe90
 2	518	1704827619179522682	CMakeFiles/SmartPointers.dir/main.cpp.o	1dbd21e6cc9ed5b1
+7	185	1704825643793443428	CMakeFiles/SmartPointers.dir/CRefCounter.cpp.o	e2a0e8a55704e8c3
 519	618	1704827619278546578	SmartPointers	c0e8b0dd9e4cd3f6
+2	497	1704827619157440803	CMakeFiles/SmartPointers.dir/SmartMPointer.cpp.o	c41915b54a5fbe90

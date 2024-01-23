@@ -46,7 +46,8 @@ int main() {
     SmartMPointer<int> un4 = std::move(uniqueIntPtr);
     //copy doesn't work
 //    SmartMPointer<int> un5 = uniqueIntPtr;
-
+    un2 = std::move(un4);
+//rvalue
 // dla tablicy int
     SmartMPointer<int[]> uniqueIntPtrArray(new int[5]{1, 2, 3, 4, 5});
     std::cout << "MyUniquePointer<int[]>: " << uniqueIntPtrArray[1] << "\n";

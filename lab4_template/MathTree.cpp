@@ -11,9 +11,19 @@ void mt_test() {
     tree2.enter("+ + sin 3 4 8");
     MathTree<int> tree3 = tree + std::move(tree2);
 //    std::cout<<tree3.root<<std::endl;
-    tree = tree3;
+    tree = std::move(tree3);
     std::cout << tree.root << " " << &tree3;
 
+}
+
+template<typename T>
+typename MathTree<T>::Node *MathTree<T>::copyTree(const MathTree::Node *root) {
+    if (root == nullptr) return nullptr;
+
+    Node *newNode = new Node(*root);
+    newNode->left = copyTree(root->left);
+    newNode->right = copyTree(root->right);
+    return newNode;
 }
 
 template<typename T>
@@ -37,16 +47,6 @@ std::string MathTree<std::string>::sGetKnownType() {
 }
 
 template<typename T>
-typename MathTree<T>::Node *MathTree<T>::copyTree(const MathTree::Node *root) {
-    if (root == nullptr) return nullptr;
-
-    Node *newNode = new Node(*root);
-    newNode->left = copyTree(root->left);
-    newNode->right = copyTree(root->right);
-    return newNode;
-}
-
-template<typename T>
 MathTree<T> MathTree<T>::operator+(const MathTree<T> &&other) {
     Node *newRoot = new Node(PLUS);
     newRoot->left = copyTree(root);
@@ -56,7 +56,7 @@ MathTree<T> MathTree<T>::operator+(const MathTree<T> &&other) {
     tree.root = newRoot;
 //    std::cout<<tree.root<<std::endl;
     newRoot = nullptr;
-    return std::move(tree);
+    return tree;
 }
 
 template<typename T>
@@ -77,11 +77,13 @@ template<typename T>
 MathTree<T> &MathTree<T>::operator=(const MathTree<T> &other) noexcept {
     if (this != &other) {
         delete root;
-        vars.clear();
-        root = copyTree(other.root);
-        for (int i = 0; i < other.vars.size(); ++i) {
-            vars.push_back(new Node(*other.vars.at(i)));
-        }
+        root = other.root ? new Node(*other.root) : nullptr;
+
+        // Przeniesienie kolekcji vars z użyciem std::move
+        vars = std::move(other.vars);
+
+
+        other.root = nullptr;
     }
     return *this;
 }
